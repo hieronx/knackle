@@ -1,0 +1,9 @@
+<h1>Groups</h1>
+Welcome, <%= current_user.name %>
+
+<% @groups.each do |group| %>
+  <div class="group">
+    <h2><%= group.name %></h2>
+    <a href="#">Join</a>
+  </div>
+<% end %>

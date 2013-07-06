@@ -1,0 +1,105 @@
+     <style type="text/css">
+ div.fileinputs {
+  position: relative;
+}
+
+div.fakefile {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  width: 100%;
+}
+
+input.file {
+  position: relative;
+  text-align: right;
+  -moz-opacity:0 ;
+  filter:alpha(opacity: 0);
+  opacity: 0;
+  z-index: 2;
+}
+
+.ui-body-c.ui-input-text {
+border:0px;
+}
+</style>
+     
+<div data-role="page">
+
+  <a href="/groups">
+    <div data-role="panel" id="panel" data-position="right" data-theme="a" data-display="push"></div>
+  </a>
+
+  <div data-role="header">
+    <a data-iconpos="notext" data-role="button" data-icon="back" title="Home">Home</a>
+     <h1><%= @group.title %></h1>
+   
+  </div>
+
+  <div data-role="content" role="main">
+  
+
+    <ul class="listview" data-role="listview" data-inset="true">
+      <% if @active_user == current_user %>
+        <li data-role="list-divider" data-theme="a">Your assigment</li>
+        <li>"<%= @active_assignment[0].content %>"</li>
+
+        <%= form_for @active_assignment[0], html: {:'data-ajax' => "false"} do |f| %>
+          <div class="fileinputs" >
+            <%= f.file_field :photo, html: {style: "border:0px;"}, class: "file" %>
+            <div class="fakefile">
+              <button data-theme="f" class="ui-btn-hidden" data-disabled="false">Select Picture</button>
+            </div>
+          </div>
+          <%= f.hidden_field :finished, :value => true %>
+        <% end %>
+
+      <% elsif !@active_user.blank? %>
+        <li data-role="list-divider" data-theme="a"><%= @active_user.name %> assigment</li>
+        <li>"<%= @active_assignment[0].content %>"</li>
+      <% end %>
+
+    </ul>
+    
+     <!-- <button class="ui-btn-hidden" data-disabled="false">Upload Picture</button> -->
+
+    <div class="ui-block-b">
+      <button data-icon="flat-cross" data-theme="d" class="ui-btn-hidden" data-disabled="false" onClick="alert('No option');">Failed</button>
+    </div>
+     <br /><br /><br />
+     
+    <ul data-role="listview" data-inset="true">
+      <li data-role="list-divider" data-theme="a"  data-disabled="false">Time-Left</li>
+      <li class="time" style="padding:5px;" id="year">17:30</li>
+    </ul>
+    
+    <ul class="listview" data-role="listview" data-inset="true">
+      <li data-role="list-divider" data-theme="a">History</li>
+      <% @assignments.each do |assignment| %>
+        <% if assignment.finished %>
+          <li><a href="#"><%= assignment.user.name %> (<%= time_ago_in_words assignment.updated_at %>)<span><Br><%= assignment.content %></span></a></li>
+        <% end %>
+      <% end %>
+    </ul> 
+  
+    <ul class="listview" data-role="listview" data-inset="true">
+      <li data-role="list-divider" data-theme="a">Members</li>
+      <% @group.users.each do |user| %>
+        <li><%= user.name %></li>
+      <% end %>
+    </ul> 
+
+    <a href="/groups/leave/<%= @group.id %>">Leave group</a>
+    
+</div>
+
+
+
+<script type="text/javascript">
+$('input[type=file]').change(function() { 
+    // select the form and submit
+    $('form').submit(); 
+});     
+     
+</script>

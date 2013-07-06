@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  content: MyText
+  user_id: 1
+  deadline: 2013-07-06 16:28:13
+
+two:
+  content: MyText
+  user_id: 1
+  deadline: 2013-07-06 16:28:13

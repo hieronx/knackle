@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content:</b>
+  <%= @assignment.content %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @assignment.user_id %>
+</p>
+
+<p>
+  <b>Deadline:</b>
+  <%= @assignment.deadline %>
+</p>
+
+<%= image_tag @assignment.photo.url(:medium) %>
+
+<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
+<%= link_to 'Back', assignments_path %>

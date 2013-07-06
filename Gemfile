@@ -13,6 +13,10 @@ gem 'fb_graph'
 gem "paperclip", "~> 3.0"
 gem 'aws-sdk'
 
+group :development, :test do
+  gem 'sqlite3'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -41,3 +45,8 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+# 
+group :production do
+  gem 'pg', '0.12.2'
+  gem 'therubyracer'
+end

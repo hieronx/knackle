@@ -18,7 +18,7 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
 
-    @active_assignment = Assignment.where(finished: false)
+    @active_assignment = Assignment.where(group_id: params[:id], finished: false)
     @active_user = @active_assignment.collect(&:user).first
 
     @assignments = Assignment.where(group_id: @group.id)

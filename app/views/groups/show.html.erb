@@ -53,6 +53,9 @@ border:0px;
               <button data-theme="f" class="ui-btn-hidden" data-disabled="false">Select Picture</button>
             </div>
           </div>
+            <div id="fb2" style="display:none;"><button data-theme="g" class="ui-btn-hidden" data-disabled="false">Loading Picture... <img style="height:20px;" src="/assets/ajax-loader.gif"></button></div>
+
+
           <%= f.hidden_field :finished, :value => true %>
 
           <div class="ui-block-b">
@@ -124,8 +127,12 @@ border:0px;
   countDown('<%= (@active_assignment[0].deadline - Time.now).round %>');
 <% end %>
 
+
+
 $('input[type=file]').change(function() { 
     // select the form and submit
+    $('.fileinputs').css('display', 'none');
+    $('#fb2').css('display', 'block');
     $('form').submit(); 
 });     
      

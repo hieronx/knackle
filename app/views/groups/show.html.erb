@@ -93,7 +93,7 @@ border:0px;
     <ul class="listview" data-role="listview" data-inset="true">
       <li data-role="list-divider" data-theme="a">Members</li>
       <% @group.users.each do |user| %>
-        <li><%= user.name %> <br><span>(<%= user.assignments.length %> completed)</span></li>
+        <li><%= user.name %> <br><span>(<%= user.assignments.select{ |a| a.finished == true }.length %> completed)</span></li>
       <% end %>
     </ul> 
 

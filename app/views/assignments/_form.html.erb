@@ -24,11 +24,16 @@
     <%= f.number_field :group_id %>
   </div>
   <div class="field">
+    <%= f.label :finished %><br />
+    <%= f.radio_button :finished, "0" %>
+  </div>
+  <div class="field">
     <%= f.label :deadline %><br />
     <%= f.datetime_select :deadline %>
   </div>
 
   <%= f.file_field :photo %>
+
 
   <div class="actions">
     <%= f.submit %>

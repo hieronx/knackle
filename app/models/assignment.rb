@@ -16,13 +16,14 @@ class Assignment < ActiveRecord::Base
       group = Group.find(group_id)
       members = group.users
 
+      Rails.logger.info(members)
+
       assignee = members.first(offset: user_id+1)
       if (assignee.nil?)
         assignee = members.first
       end
 
-      offset = rand(Task.where(used: false).count)
-      task = Task.first(offset: offset)
+      task = Task.order("RANDOM()").first
       content = task.content
 
       task.used = true

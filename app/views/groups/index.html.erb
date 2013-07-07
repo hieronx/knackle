@@ -26,13 +26,18 @@
               <%= group.title %> (<%= group.users.length %>)
               <span><br />
                 <b>It's your turn, do your assignment!</b>
+                <% if !group.last_update.nil? %>
+                  Active <%= time_ago_in_words group.last_update %> ago
+                <% end %>
               </span>
             </a>
           <% else %>
             <a href="<%= url_for group %>" data-ajax="false">
               <%= group.title %> (<%= group.users.length %>)
               <span><br />
-                  Active <%= time_ago_in_words group.updated_at %>
+                <% if !group.last_update.nil? %>
+                  Active <%= time_ago_in_words group.last_update %> ago
+                <% end %>
               </span>
             </a>
           <% end %>

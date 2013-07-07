@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  attr_accessible :title
+  attr_accessible :title, :last_update
 
   has_many :memberships, :dependent => :destroy  
   has_many :users, :through => :memberships

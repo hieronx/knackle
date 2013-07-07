@@ -8,6 +8,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :user
 
   after_save :add_assignment
+  after_save :update_group
 
   private
 
@@ -28,5 +29,11 @@ class Assignment < ActiveRecord::Base
 
       Assignment.create(content: content, deadline: 1.hours.from_now - 1.minute, user_id: assignee.id, group_id: group_id, finished: false)
     end
+  end
+
+  def update_group
+    group = Group.find(group_id)
+    group.last_update = DateTime.now
+    group.save
   end
 end

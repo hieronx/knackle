@@ -28,7 +28,7 @@ class Assignment < ActiveRecord::Base
       task.used = true
       task.save
 
-      Assignment.create(content: content, deadline: 12.hours.from_now - 1.minute, user_id: assignee.id, group_id: group_id, finished: false)
+      Assignment.create(content: content, deadline: 1.hours.from_now - 1.minute, user_id: assignee.id, group_id: group_id, finished: false)
     end
   end
 end

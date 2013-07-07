@@ -1,4 +1,7 @@
 Knackle::Application.routes.draw do
+  resources :messages
+
+
   resources :tasks
 
 

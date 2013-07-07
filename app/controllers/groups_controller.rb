@@ -21,7 +21,10 @@ class GroupsController < ApplicationController
     @active_assignment = Assignment.where(group_id: params[:id], finished: false)
     @active_user = @active_assignment.collect(&:user).first
 
-    @assignments = Assignment.where(group_id: @group.id)
+    @messages = Message.where(group_id: params[:id]).order("updated_at DESC")[0..2]
+    @message = Message.new
+
+    @assignments = Assignment.where(group_id: @group.id).order("updated_at DESC")[0..3]
 
     respond_to do |format|
       format.html # show.html.erb

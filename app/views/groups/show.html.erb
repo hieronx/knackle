@@ -80,10 +80,28 @@ border:0px;
         <li id="tijd" class="time" style="padding:5px;"></li>
       </ul>
     <% end %>
+
+    <ul class="listview" data-role="listview" data-inset="true">
+      <li data-role="list-divider" data-theme="a">Chat</li>
+      <% if !@messages.nil? %>
+        <% @messages.each do |message| %>
+          <li><%= message.content %><span><Br><%= message.user.name %> (<%= time_ago_in_words message.updated_at %> ago)</span></li>
+        <% end %>
+      <% end %>
+
+      <%= form_for(@message) do |f| %>
+          <%= f.text_field :content, placeholder: "Your message" %>
+
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <%= f.hidden_field :group_id, value: @group.id %>
+
+          <%= f.submit %>
+      <% end %>
+    </ul>
     
     <ul class="listview" data-role="listview" data-inset="true">
-      <li data-role="list-divider" data-theme="a">History</li>
-      <% @assignments.order("updated_at DESC").each do |assignment| %>
+      <li data-role="list-divider" data-theme="a">Last 3 assignments</li>
+      <% @assignments.each do |assignment| %>
         <% if assignment.finished %>
           <li><a href="<%= url_for assignment %>"><%= assignment.user.name %> (<%= time_ago_in_words assignment.updated_at %>)<span><Br><%= assignment.content %></span></a></li>
         <% end %>

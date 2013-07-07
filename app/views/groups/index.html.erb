@@ -11,7 +11,7 @@
     <ul class="listview" data-role="listview" data-inset="true">
       <li data-role="list-divider" data-theme="a">Your groups (<%= current_user.groups.length %>)</li>
       <% current_user.groups.each do |group| %>
-        <li><a href="<%= url_for group %>"><%= group.title %> (<%= group.users.length %>)<span><Br>Active <%= time_ago_in_words group.updated_at %></span></a></li>
+        <li><a href="<%= url_for group %>" data-ajax="false"><%= group.title %> (<%= group.users.length %>)<span><Br>Active <%= time_ago_in_words group.updated_at %></span></a></li>
       <% end %>
     </ul>
 

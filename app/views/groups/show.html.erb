@@ -80,7 +80,7 @@ border:0px;
     
     <ul class="listview" data-role="listview" data-inset="true">
       <li data-role="list-divider" data-theme="a">History</li>
-      <% @assignments.each do |assignment| %>
+      <% @assignments.order("updated_at DESC").each do |assignment| %>
         <% if assignment.finished %>
           <li><a href="<%= url_for assignment %>"><%= assignment.user.name %> (<%= time_ago_in_words assignment.updated_at %>)<span><Br><%= assignment.content %></span></a></li>
         <% end %>
@@ -90,11 +90,11 @@ border:0px;
     <ul class="listview" data-role="listview" data-inset="true">
       <li data-role="list-divider" data-theme="a">Members</li>
       <% @group.users.each do |user| %>
-        <li><%= user.name %></li>
+        <li><%= user.name %> <br><span>(<%= user.assignments.length %> completed)</span></li>
       <% end %>
     </ul> 
 
-    <a href="/groups/leave/<%= @group.id %>">Leave group</a>
+    <a href="/groups/leave/<%= @group.id %>" rel="nofollow" style="text-decoration: none;">><button data-theme="d" class="ui-btn-hidden" data-disabled="false">Leave group</button></a>
     
 </div>
 

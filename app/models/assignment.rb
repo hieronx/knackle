@@ -21,7 +21,14 @@ class Assignment < ActiveRecord::Base
         assignee = members.first
       end
 
-      Assignment.create(content: "Nog een test", deadline: 12.hours.from_now - 1.minute, user_id: assignee.id, group_id: group_id, finished: false)
+      offset = rand(Task.where(used: false).count)
+      task = Task.first(offset: offset)
+      content = task.content
+
+      task.used = true
+      task.save
+
+      Assignment.create(content: content, deadline: 12.hours.from_now - 1.minute, user_id: assignee.id, group_id: group_id, finished: false)
     end
   end
 end

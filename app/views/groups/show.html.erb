@@ -48,7 +48,7 @@ border:0px;
 
         <%= form_for @active_assignment[0], html: {:'data-ajax' => "false"} do |f| %>
           <div class="fileinputs" >
-            <%= f.file_field :photo, html: {style: "border:0px;"}, class: "file" %>
+            <%= f.file_field :photo, :accept => "image/*", :capture => "camera", class: "file" %>
             <div class="fakefile">
               <button data-theme="f" class="ui-btn-hidden" data-disabled="false">Select Picture</button>
             </div>

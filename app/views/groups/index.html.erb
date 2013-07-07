@@ -1,4 +1,13 @@
-<div data-role="page">
+  <style type="text/css">
+  
+  .listview a { text-decoration:none; }
+  .listview span { font-size:10px; }
+  
+  
+  .active span { color:red; font-size:12px; }
+  </style>
+
+  <div data-role="page">
 
   <div data-role="panel" id="panel" data-position="right" data-theme="a" data-display="push"></div>
 
@@ -11,7 +20,23 @@
     <ul class="listview" data-role="listview" data-inset="true">
       <li data-role="list-divider" data-theme="a">Your groups (<%= current_user.groups.length %>)</li>
       <% current_user.groups.each do |group| %>
-        <li><a href="<%= url_for group %>" data-ajax="false"><%= group.title %> (<%= group.users.length %>)<span><Br>Active <%= time_ago_in_words group.updated_at %></span></a></li>
+        <li>
+          <% if group.assignments.collect(&:user).first == current_user %>
+            <a href="<%= url_for group %>" data-ajax="false" class="active">
+              <%= group.title %> (<%= group.users.length %>)
+              <span><br />
+                <b>It's your turn, do your assignment!</b>
+              </span>
+            </a>
+          <% else %>
+            <a href="<%= url_for group %>" data-ajax="false">
+              <%= group.title %> (<%= group.users.length %>)
+              <span><br />
+                  Active <%= time_ago_in_words group.updated_at %>
+              </span>
+            </a>
+          <% end %>
+        </li>
       <% end %>
     </ul>
 

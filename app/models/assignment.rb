@@ -18,10 +18,7 @@ class Assignment < ActiveRecord::Base
 
       Rails.logger.info(members)
 
-      assignee = members.first(offset: user_id+1)
-      if (assignee.nil?)
-        assignee = members.first
-      end
+      assignee = members.order("RANDOM()").first
 
       task = Task.order("RANDOM()").first
       content = task.content

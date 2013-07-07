@@ -21,7 +21,7 @@
       <li data-role="list-divider" data-theme="a">Your groups (<%= current_user.groups.length %>)</li>
       <% current_user.groups.each do |group| %>
         <li>
-          <% if group.assignments.collect(&:user).first == current_user %>
+          <% if group.assignments.where(finished: false).collect(&:user).first == current_user %>
             <a href="<%= url_for group %>" data-ajax="false" class="active">
               <%= group.title %> (<%= group.users.length %>)
               <span><br />

@@ -27,13 +27,14 @@ border:0px;
      
 <div data-role="page">
 
-  <a href="/groups">
-    <div data-role="panel" id="panel" data-position="right" data-theme="a" data-display="push"></div>
-  </a>
+
 
   <div data-role="header">
-    <a data-iconpos="notext" data-role="button" data-icon="back" title="Home">Home</a>
-     <h1><%= @group.title %></h1>
+<a href="/groups" data-iconpos="notext" data-role="button" data-icon="home" title="Home" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a">
+    <span class="ui-btn-inner">
+    <span class="ui-btn-text">Home</span>
+    <span class="ui-icon ui-icon-back ui-icon-shadow">&nbsp;</span></span>
+    </a>     <h1><%= @group.title %></h1>
    
   </div>
 
@@ -53,6 +54,12 @@ border:0px;
             </div>
           </div>
           <%= f.hidden_field :finished, :value => true %>
+
+          <div class="ui-block-b">
+            <button data-icon="flat-cross" data-theme="d" class="ui-btn-hidden" data-disabled="false" onClick="alert('No option');">Failed</button>
+          </div>
+          
+          <br /><br /><br />
         <% end %>
 
       <% elsif !@active_user.blank? %>
@@ -63,22 +70,19 @@ border:0px;
     </ul>
     
      <!-- <button class="ui-btn-hidden" data-disabled="false">Upload Picture</button> -->
-
-    <div class="ui-block-b">
-      <button data-icon="flat-cross" data-theme="d" class="ui-btn-hidden" data-disabled="false" onClick="alert('No option');">Failed</button>
-    </div>
-     <br /><br /><br />
      
-    <ul data-role="listview" data-inset="true">
-      <li data-role="list-divider" data-theme="a"  data-disabled="false">Time-Left</li>
-      <li class="time" style="padding:5px;" id="year">17:30</li>
-    </ul>
+    <% if !@active_user.blank? %>
+      <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider" data-theme="a"  data-disabled="false">Time-Left</li>
+        <li id="tijd" class="time" style="padding:5px;"></li>
+      </ul>
+    <% end %>
     
     <ul class="listview" data-role="listview" data-inset="true">
       <li data-role="list-divider" data-theme="a">History</li>
       <% @assignments.each do |assignment| %>
         <% if assignment.finished %>
-          <li><a href="#"><%= assignment.user.name %> (<%= time_ago_in_words assignment.updated_at %>)<span><Br><%= assignment.content %></span></a></li>
+          <li><a href="<%= url_for assignment %>"><%= assignment.user.name %> (<%= time_ago_in_words assignment.updated_at %>)<span><Br><%= assignment.content %></span></a></li>
         <% end %>
       <% end %>
     </ul> 
@@ -94,9 +98,32 @@ border:0px;
     
 </div>
 
-
-
 <script type="text/javascript">
+<% if !@active_user.blank? %>
+  function leftPad(number, targetLength) {
+      var output = number + '';
+      while (output.length < targetLength) {
+          output = '0' + output;
+      }
+      return output;
+  }
+
+  function countDown(tijd)
+  {
+    var tijd = tijd - 1;
+    var q = tijd / 3600;
+    var qround = Math.floor(q);
+    var tijd2 = tijd - qround * 3600;
+    var x=tijd2%60;
+    var z = tijd2/60;
+    var y = Math.round(z);
+    
+    document.getElementById('tijd').innerHTML = leftPad(qround,2)+':'+leftPad(y,2)+':'+leftPad(x,2);
+    setTimeout("countDown('"+tijd+"');", 1000);
+  }
+  countDown('<%= (@active_assignment[0].deadline - Time.now).round %>');
+<% end %>
+
 $('input[type=file]').change(function() { 
     // select the form and submit
     $('form').submit(); 

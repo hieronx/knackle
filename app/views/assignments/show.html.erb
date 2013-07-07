@@ -1,21 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div data-role="page">
 
-<p>
-  <b>Content:</b>
-  <%= @assignment.content %>
-</p>
+  <div data-role="panel" id="panel" data-position="right" data-theme="a" data-display="push"></div>
 
-<p>
-  <b>User:</b>
-  <%= @assignment.user_id %>
-</p>
+  <div data-role="header">
+<a href="/groups/<%= @assignment.group.id %>" data-iconpos="notext" data-role="button" data-icon="home" title="Home" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a">
+    <span class="ui-btn-inner">
+    <span class="ui-btn-text">Home</span>
+    <span class="ui-icon ui-icon-back ui-icon-shadow">&nbsp;</span></span>     <h1><%= @assignment.user.name %></h1>
+   
+  </div>
 
-<p>
-  <b>Deadline:</b>
-  <%= @assignment.deadline %>
-</p>
+  <div data-role="content" role="main">
+  
 
-<%= image_tag @assignment.photo.url(:medium) %>
-
-<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
-<%= link_to 'Back', assignments_path %>
+    <ul class="listview" data-role="listview" data-inset="true">
+      <li data-role="list-divider" data-theme="a">Assignment <%= @assignment.user.name %></li>
+      <li>"<%= @assignment.content %>"</li>
+      <li class="active"><data-icon="back">Succeeded <%= time_ago_in_words @assignment.updated_at %>.</li>
+    </ul>
+    
+    
+    <ul class="listview" data-role="listview" data-inset="true">
+      <li data-role="list-divider" data-theme="a">Proof</li>
+     <li> <center><%= image_tag @assignment.photo.url(:medium) %></center>
+      </li>
+    </ul>
+    
+</div>

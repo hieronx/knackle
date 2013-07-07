@@ -8,12 +8,22 @@
         
     
     
-        <center><img src="assets/logo.png" style="width:80%; max-width: 400px;"> 
-          <a href="<%= user_omniauth_authorize_url(:facebook) %>" data-ajax="false" style="text-decoration: none;"><button data-theme="f" class="ui-btn-hidden" data-disabled="false">Sign in with Facebook</button></a>
-          
+<center><img src="/assets/logo.png" style="width:80%; max-width: 400px;"> 
+          <div id="fb1"><a href="/users/auth/facebook" onclick="load_fb();" data-ajax="false" style="text-decoration: none;"><button data-theme="f" class="ui-btn-hidden" data-disabled="false">Sign in with Facebook</button></a></div>
+          <div id="fb2" style="display:none;"><button data-theme="g" class="ui-btn-hidden" data-disabled="false">Loading Facebook... <img style="height:20px;" src="/assets/ajax-loader.gif"></button></div>
+        <script type="text/javascript">
+        function load_fb()
+        {
+          document.getElementById('fb1').style.display = 'none';
+          document.getElementById('fb2').style.display = 'block';
+        }
+        </script>
+    
+    
           <br>
           <p>You need Facebook to login, if you don't have you can't play this game. So create a Facebook account and join!</p>
           
         </center>
+
     </div>
  </div>
